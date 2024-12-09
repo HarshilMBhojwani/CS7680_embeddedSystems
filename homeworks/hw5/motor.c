@@ -3,7 +3,7 @@
 #include <pigpio.h>
 
 
-
+// establinshing all the gpio pin values
 const int servo=21;
 const int  redLed=20;
 const int whiteLed=16;
@@ -11,8 +11,10 @@ const int greenLed=12;
 const int blueLed=24;
 const int yellowLed=25;
 
+// setting a variable for user to input servo speed
 char input;
 
+//variable to change the servo speed
 int speed;
 
 
@@ -33,6 +35,7 @@ int  main(){
 
 	}
 
+// setting all the components as output
 	gpioSetMode(servo, PI_OUTPUT);
 	gpioSetMode(redLed, PI_OUTPUT);
 	gpioSetMode(whiteLed, PI_OUTPUT);
@@ -41,8 +44,9 @@ int  main(){
 	gpioSetMode(yellowLed, PI_OUTPUT);
 	//gpioSetMode(servo, PI_OUTPUT);
 
+//setting the initally as zero
 	signal(SIGINT, sigint_handler);
-        gpioWrite(blueLed, 1);
+    gpioWrite(blueLed, 1);
 	gpioWrite(greenLed, 0);
 	gpioWrite(whiteLed, 0);
 	gpioWrite(yellowLed, 0);
@@ -54,10 +58,14 @@ int  main(){
 
 	printf("Select Motor Speed?\nPress 's' for Slow\nPress 'm' for Medium.\nPress 'f' for Fast\nPress 'x' for Stop.\nPress 'Enter' to confirm the speed\n");
 
+// when program starts, blue led lights on to indicate the program is functioning
 	while(!signal_received){ 
 	        
+	
 		if(scanf("%c", &input)==1){
 			//printf("You entered:%c\n",input);
+
+//If the user inputs s, the servo speed becomes slow and and green led goes on
 			if(input=='s'){
 				printf("You entered:%c\n",input);
 				gpioWrite(greenLed, 1);
@@ -68,6 +76,8 @@ int  main(){
 				gpioPWM(servo,85);
 				printf("Setting speed to slow\n");
 				//time_sleep(5000);
+
+// //If the user inputs m, the servo speed becomes medium and and white led goes on
 			}else if(input=='m'){
 				printf("You entered:%c\n",input);
 				gpioPWM(servo, 170);
@@ -78,6 +88,8 @@ int  main(){
 				gpioWrite(redLed,0);	
 				printf("Setting speed to Medium\n");
 				//time_sleep(5000);
+
+//If the user inputs f, the servo speed becomes fast and and red led goes on
 			}else if(input=='f'){
 				printf("You entered:%c\n",input);
 				gpioPWM(servo, 255);
@@ -88,6 +100,9 @@ int  main(){
 				gpioWrite(yellowLed, 0);
 				printf("Setting speed to Fast\n");
 				//time_sleep(5000);
+
+
+//If the user inputs x, the servo stops and yellow led goes on
 			}else if(input=='x'){
 				printf("You entered:%c\n",input);
 				gpioWrite(blueLed, 1);
@@ -104,6 +119,8 @@ int  main(){
 		}
 
 	}
+
+	// once the user exits the program safely exiting the program
 	gpioWrite(blueLed, 0);
 	gpioWrite(greenLed, 0);
 	gpioWrite(whiteLed, 0);

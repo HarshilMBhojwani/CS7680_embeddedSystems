@@ -12,10 +12,11 @@
  */
 
 
-int temp = 72;
+int temp = 72;// Initial temperature
 
-char input[7];
+char input[7];// Input buffer for user commands
 
+// Function to display the welcome message and instructions
 void view(){
 
     printf("Welcoome to the Den\n");
@@ -25,59 +26,53 @@ void view(){
 
 }
 
+// Function to simulate random temperature fluctuations
 int fakenews() {
 
-	int maxt = 85;
-	int mint = 55;
-	int rmove = 0;
-	
-	rmove = (rand() % 10);
-	if (rmove==0) temp = temp-1;
-	if (rmove==9) temp = temp+1;
-	if (temp<mint) temp = mint;
-	if (temp>maxt) temp = maxt;
+	 int maxt = 85; // Maximum allowable temperature
+    int mint = 55; // Minimum allowable temperature
+    int rmove = 0; // Random value for temperature adjustment
 
-	return temp;
+    rmove = (rand() % 10); // Generate a random number between 0 and 9
+    if (rmove == 0) temp = temp - 1; // Decrease temperature by 1
+    if (rmove == 9) temp = temp + 1; // Increase temperature by 1
+
+    // Ensure the temperature stays within bounds
+    if (temp < mint) temp = mint;
+    if (temp > maxt) temp = maxt;
+
+    return temp; // Return the updated temperature
 }
 
+// Function to control the program's main functionality
 int controller(){
 
-	while(1){
-		
-		fakenews();
-		printf("The current Temperature = %d\n", temp);
+	while (1) { // Infinite loop
+        fakenews(); // Update the temperature with random fluctuations
+        printf("The current temperature = %d\n", temp);
 
-		
-		if(_kbhit()){
+        // Check if a key has been pressed (_kbhit is platform-dependent)
+        if (_kbhit()) {
+            // Read a single character from the user
+            scanf(" %c", &input[0]);
 
-			scanf(" %c", &input[0]);
+            // If the user inputs 't', allow them to set a new temperature
+            if (input[0] == 't') {
+                printf("Set the new temperature: ");
+                scanf("%d", &temp); // Update the temperature
+                continue; // Skip the rest of the loop iteration
+            }
 
-			if(input[0]=='t'){
-			printf("Set the new the new temperature ");
-			scanf("%d", &temp);
-			continue;
-			}
-			if(input[0]=='x'){
-			exit(0);
-			}
+            // If the user inputs 'x', exit the program
+            if (input[0] == 'x') {
+                exit(0); // Terminate the program
+            }
+        }
 
+        sleep(1); // Wait for 1 second before the next iteration
+    }
 
-		}
-
-		sleep(1);
-		
-
-
-	}
-	
-
-	return 0;
-
-
-
-
-
-
+    return 0; // This line is never reached
 }
 
 int main(int argc, char* argv[]){

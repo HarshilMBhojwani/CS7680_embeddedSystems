@@ -8,13 +8,23 @@
 #include <stdio.h>
 
 int main() {
+
+    //setting the value to pico deafualt value for red
     const uint LED_PIN = PICO_DEFAULT_LED_PIN;
+
+// setting another green led
     const uint greenLed=16;
+
+//Initiializing both the pins
     gpio_init(LED_PIN);
     gpio_init(greenLed);
+
+//Making both pins as output
     gpio_set_dir(LED_PIN, GPIO_OUT);
     gpio_set_dir(greenLed, GPIO_OUT);
     stdio_init_all();
+
+//Making them blink alternate by setting their states alternate
     while (true) {
         gpio_put(LED_PIN, 1);
         gpio_put(greenLed, 0);
