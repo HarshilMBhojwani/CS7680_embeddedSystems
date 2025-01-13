@@ -27,7 +27,7 @@ void view(){
 }
 
 // Function to simulate random temperature fluctuations
-int fakenews() {
+int controller() {
 
 	 int maxt = 85; // Maximum allowable temperature
     int mint = 55; // Minimum allowable temperature
@@ -45,10 +45,12 @@ int fakenews() {
 }
 
 // Function to control the program's main functionality
-int controller(){
+int model(){
+
+    view();
 
 	while (1) { // Infinite loop
-        fakenews(); // Update the temperature with random fluctuations
+        controller(); // Update the temperature with random fluctuations
         printf("The current temperature = %d\n", temp);
 
         // Check if a key has been pressed (_kbhit is platform-dependent)
@@ -78,42 +80,9 @@ int controller(){
 int main(int argc, char* argv[]){
 
 
-	// printf("Welcoome to the Den\n");
-	// printf("The set temperature = %d\n", temp);
-	// printf("Type 't' to be able to set the temperature\n");
-	// printf("Type x to exit the program");
-
-	view();
-
-	controller();
-
-	// while(1){
-		
-	// 	fakenews();
-	// 	printf("The current Temperature = %d\n", temp);
-
-		
-	// 	if(_kbhit()){
-
-	// 		scanf(" %c", &input[0]);
-
-	// 		if(input[0]=='t'){
-	// 		printf("Set the new the new temperature ");
-	// 		scanf("%d", &temp);
-	// 		continue;
-	// 		}
-	// 		if(input[0]=='x'){
-	// 		exit(0);
-	// 		}
-
-
-	// 	}
-
-	// 	sleep(1);
-		
-
-
-	// }
+	//view();
+    model();
+	//controller();
 	
 
 	return 0;
